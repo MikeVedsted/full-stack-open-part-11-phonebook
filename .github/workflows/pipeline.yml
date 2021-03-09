@@ -49,8 +49,9 @@ jobs:
       #   env:
       #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       #     DEFAULT_BUMP: patch
-      - name: ensure up-to-date heroku  
-        run: git pull remote heroku
+
+      # - name: ensure up-to-date heroku  
+      #   run: git pull remote heroku
       - name: Deploy
         if: github.event_name == 'push' && !contains(toJson(join(github.event.commits.*.message)), '#skip')
         uses: akhileshns/heroku-deploy@v3.9.9
