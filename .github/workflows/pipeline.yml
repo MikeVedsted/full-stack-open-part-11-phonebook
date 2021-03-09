@@ -44,7 +44,7 @@ jobs:
         uses: akhileshns/heroku-deploy@v3.9.9
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "cicd-phone-example"
+          # heroku_app_name: "cicd-phone-example"
           heroku_email: "mikevedsted@gmail.com"
           # healthcheck: "https://cicd-phonebook.herokuapp.com//health"
           # checkstring: "ok"
