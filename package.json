@@ -8,7 +8,8 @@
     "start": "node index.js",
     "dev": "concurrently --kill-others-on-fail \"nodemon index.js \" \"cd client && npm start\"",
     "lint": "eslint .",
-    "install:build": "npm install && cd client && npm install"
+    "install:build": "npm install && cd client && npm install",
+    "build:client": "cd client && npm run build && mv build ../dist"
   },
   "author": "",
   "license": "ISC",
