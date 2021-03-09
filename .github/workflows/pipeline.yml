@@ -46,7 +46,7 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "boiling-peak-04070"
           heroku_email: "mikevedsted@gmail.com"
-          healthcheck: "https://cicd-phonebook.herokuapp.com//health"
+          healthcheck: "https://boiling-peak-04070.herokuapp.com//health"
           checkstring: "ok"
           rollbackonhealthcheckfailed: true    
 
