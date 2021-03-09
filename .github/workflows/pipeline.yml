@@ -39,8 +39,7 @@ jobs:
         
       - name: Build client
         run: cd client && npm run build
-      - name: remove old heroku_api_key
-        run: git remote remove heroku
+      
       - name: Deploy
         uses: akhileshns/heroku-deploy@v3.9.9
         with:
