@@ -70,7 +70,7 @@ jobs:
             {
               attachments: [{
                 color: '${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning',
-                title: '${{ job.status }}' === 'success' ? 'New version of DexMyPoke has been deployed' : `Deployment of ${process.env.AS_COMMIT} failed`,
+                title: '${{ job.status }}' === 'success' ? 'New version has been deployed' : `Deployment of ${process.env.AS_COMMIT} failed`,
                 text: `Process was triggered by ${process.env.AS_EVENT_NAME} to ${process.env.AS_REPO} authored by ${process.env.AS_AUTHOR} and took ${process.env.AS_TOOK}`,
                 fields: '${{ job.status }}' === 'success' ? [] : [{
                   title: 'Job',
@@ -101,7 +101,3 @@ jobs:
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         if: always()
-
-
-# TO DO:
-# Add testing
