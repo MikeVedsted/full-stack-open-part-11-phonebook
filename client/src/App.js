@@ -79,7 +79,7 @@ const App = () => {
 
   return (
     <div>
-      <h1>Phone book</h1>
+      <h1>Phone Book</h1>
       <ErrorMessage message={errorMessage} />
       <SuccessMessage message={successMessage} />
       <Search searchString={searchString} setSearchString={setSearchString} />
