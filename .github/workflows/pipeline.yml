@@ -43,15 +43,13 @@ jobs:
       - name: Build client
         run: npm run build:client
       
-      # - name: Bump version and push tag
-      #   if: github.event_name == 'push' && !contains(toJson(join(github.event.commits.*.message)), '#skip')
-      #   uses: anothrNick/github-tag-action@eca2b69f9e2c24be7decccd0f15fdb1ea5906598
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #     DEFAULT_BUMP: patch
+      - name: Bump version and push tag
+        if: github.event_name == 'push' && !contains(toJson(join(github.event.commits.*.message)), '#skip')
+        uses: anothrNick/github-tag-action@eca2b69f9e2c24be7decccd0f15fdb1ea5906598
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEFAULT_BUMP: patch
 
-      # - name: ensure up-to-date heroku  
-      #   run: git pull remote heroku
       - name: Deploy
         if: github.event_name == 'push' && !contains(toJson(join(github.event.commits.*.message)), '#skip')
         uses: akhileshns/heroku-deploy@v3.9.9
@@ -67,5 +65,4 @@ jobs:
 
 # TO DO:
 # Add testing
-# Add Versioning
 # Add notifications
