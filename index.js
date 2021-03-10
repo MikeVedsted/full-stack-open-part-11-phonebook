@@ -1,4 +1,5 @@
 require('dotenv').config()
+const path = require('path')
 const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
@@ -6,7 +7,7 @@ const Person = require('./models/person')
 
 const app = express()
 
-app.use(express.static('dist/build'))
+app.use(express.static('dist'))
 app.use(express.json())
 app.use(cors())
 morgan.token('request-body', (req) => JSON.stringify(req.body))
@@ -84,9 +85,9 @@ const errorHandler = (error, request, response, next) => {
 
 app.use(errorHandler)
 
-// app.get('/*', function (req, res) {
-//   res.sendFile(path.join(__dirname, 'dist/index.html'))
-// })
+app.get('/*', function (req, res) {
+  res.sendFile(path.join(__dirname, 'dist/index.html'))
+})
 
 app.listen(process.env.PORT, () => {
   console.log(`Server running on port ${process.env.PORT}`)
