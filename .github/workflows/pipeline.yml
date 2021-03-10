@@ -52,7 +52,7 @@ jobs:
 
       - name: Deploy
         if: github.event_name == 'push' && !contains(toJson(join(github.event.commits.*.message)), '#skip')
-        uses: akhileshns/heroku-deploy@v3.9.9
+        uses: akhileshns/79ef2ae4ff9b897010907016b268fd0f88561820
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "boiling-peak-04070"
@@ -60,9 +60,48 @@ jobs:
           healthcheck: "https://boiling-peak-04070.herokuapp.com/health"
           checkstring: "ok"
           rollbackonhealthcheckfailed: true    
-
+ 
+      - name: Notify on slack
+        uses: 8398a7/action-slack@45986a1c69e93353648c176ce49eecddebebf64e
+        with:
+          status: ${{ job.status }}
+          fields: eventName, commit, repo, author, took, workflow, message
+          custom_payload: |
+            {
+              attachments: [{
+                color: '${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning',
+                title: '${{ job.status }}' === 'success' ? 'New version of DexMyPoke has been deployed' : `Deployment of ${process.env.AS_COMMIT} failed`,
+                text: `Process was triggered by ${process.env.AS_EVENT_NAME} to ${process.env.AS_REPO} authored by ${process.env.AS_AUTHOR} and took ${process.env.AS_TOOK}`,
+                fields: '${{ job.status }}' === 'success' ? [] : [{
+                  title: 'Job',
+                  value: `${process.env.AS_WORKFLOW}`,
+                },
+                {
+                  title: 'Repo',
+                  value: `${process.env.AS_REPO}`,
+                },
+                {
+                  title: 'Commit',
+                  value: `${process.env.AS_COMMIT}`,
+                },
+                {
+                  title: 'took',
+                  value: `${process.env.AS_TOOK}`,
+                },
+                {
+                  title: 'message',
+                  value: `${process.env.AS_MESSAGE}`,
+                },
+                {
+                  title: 'author',
+                  value: `${process.env.AS_AUTHOR}`,
+                }]
+              }]
+            }     
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        if: always()
 
 
 # TO DO:
 # Add testing
-# Add notifications
